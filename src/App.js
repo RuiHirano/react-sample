@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
+class App extends Component {
+  constructor(props){
+    super(props);
+    this.state={
+      lat: 0,
+      lon: 0
+    }
+  }
+  render(){
+    navigator.geolocation.getCurrentPosition(
+      pos => this.setState({ lat: pos.coords.latitude, lon: pos.coords.longitude }),
+      err => console.log(err)
+    );
   return (
     <div className="App">
       <header className="App-header">
@@ -16,11 +28,13 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          {this.state.lat}
+          {this.state.lon}
         </a>
       </header>
     </div>
   );
+  }
 }
 
 export default App;
